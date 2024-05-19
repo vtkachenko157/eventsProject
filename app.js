@@ -13,6 +13,7 @@ app.use(express.urlencoded({ extended: false }));
 
 const mongoose = require('mongoose');
 const Post = require("./postModel");
+const Registration = require("./userModel");
 
 const db = process.env.MONGODB_URL || "mongodb+srv://vladyslavtkachenko:150724vt@cluster.qj64ncr.mongodb.net/Event_DB";
 
@@ -28,6 +29,40 @@ app.get("/registration/:id", (req, res) => {
         .then(post => res.render(createPath("registrationPage"), { post }))
         .catch(error => console.log("Finding error! ", error));
 });
+
+app.post("/register/:id", (req, res) => {
+    const eventId = req.params.id;
+    const { name, email, birthday } = req.body;
+
+    const registration = new Registration({
+        name,
+        email,
+        birthday,
+        eventId,
+    });
+
+    registration.save()
+        .then(() => res.redirect(`/registrations/${eventId}`))
+        .catch(error => res.status(400).send(error.message));
+});
+
+
+
+app.get("/registrations/:eventId", (req, res) => {
+    const eventId = req.params.eventId;
+
+    Promise.all([
+        Post.findById(eventId),
+        Registration.find({ eventId })
+    ])
+        .then(([post, registrations]) => {
+            res.render(createPath("eventUsersPage"), { post, registrations });
+        })
+        .catch(error => console.log("Finding error! ", error));
+});
+
+
+
 
 
 async function start() {
