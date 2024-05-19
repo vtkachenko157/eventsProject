@@ -19,6 +19,10 @@ And, regarding the Backend part. For for storing and interacting with data, I us
 
 << If you also want to use the possibilities of interaction with this database in your project, then you need to create personal cluster of this service and find the link for connection, which should already be used in your server code of the project (where defining the database model) >>
 
+For the correct implementation for event-participants registration, I _tried to add_ methods for checking the correctness of data entry in the registration form by:
+when entering information about email, it is checked using the built-in indicator “type=email” of the HTML <input> tag;
+entering information about the date of birth, I considered that it is not very important, and therefore I set the parameter so that the information in this field is not important for filling in the database.
+
 
 <img width="300" alt="Screenshot 2024-05-18 at 16 39 12" src="https://github.com/vtkachenko157/eventsProject/assets/158561389/4f5e692f-f576-4373-8513-fb426724c4b9">
 
