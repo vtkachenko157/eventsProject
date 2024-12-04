@@ -15,7 +15,7 @@ const mongoose = require('mongoose');
 const Post = require("./postModel");
 const Registration = require("./userModel");
 
-const db = process.env.MONGODB_URL || "mongodb+srv://vladyslavtkachenko:150724vt@cluster.qj64ncr.mongodb.net/Event_DB";
+const db = process.env.MONGODB_URL || "";
 
 app.get("/", (req, res) => {
     Post.find()
